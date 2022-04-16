@@ -1,28 +1,12 @@
-1. React Native for frontend dev.
-using react native, react & javascript components
-
-2. Realm for local database.
-persistence database to run the apps 
-in the abscence of internet connection
-import Realm from "realm";
-
-3. axios to established connection
-to the backend server of the apps
-
-4. react-router-dom is when using browser
-react-router-native when developing native app
-
-5. picker in add new order modal page
-react-native-picker.picker
-
-6. Formik & Yup
-- Formik is the package to create a form
-- Yup is for validation
-- See Review App project for examples 
+1. Javascript for backend
+2. Routes and DOM 
+3. SQL for db, cloudinary for image db, 
+4. Firebase auth for sign in & register ? 
+choose between firebase auth @ normal new register
+5. node, express, cors
 
 
-AUTOMATIC BEAUTIFY VISUAL CODE
-Shift - Alt - F
+
 
 SYNC TO GITHUB
 // initialize repo in local desktop

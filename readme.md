@@ -4,6 +4,7 @@
 4. Firebase auth for sign in & register ? 
 choose between firebase auth @ normal new register
 5. node, express, cors
+6. bycript for hash
 
 
 

@@ -1,15 +1,20 @@
-// MAIN JS FILE FOR SERVER BACKEND DROPSHIP-POS
+require('./Config/MongoDBConfig');
 
 const express = require('express');
-
 const app = express();
 
 const port = 3001;
 
-app.get('/', (req,res) => {
-    res.send("Hello world. 3001 port onz! ");
-})
+const UserRouter = require('./Api/User');
+
+// for accepting post form data
+const bodyParser = require('express').json;
+app.use(bodyParser());
+
+// direct the application to the router in api ?
+app.use('/user', UserRouter)
+
 
 app.listen(port, () => {
-    console.log('Hello World server running on port: ' + port);
+    console.log("Server run on port: "+port);
 })

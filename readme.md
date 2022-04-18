@@ -1,3 +1,13 @@
+install
+- express
+- npm add mongoose dotenv
+- npm add express nodemon
+
+run
+- nodemon server.js/index.js
+
+
+
 1. Javascript for backend
 2. Routes and DOM 
 3. SQL for db, cloudinary for image db, 

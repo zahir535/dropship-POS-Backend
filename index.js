@@ -3,7 +3,7 @@ require('./Config/MongoDBConfig');
 const express = require('express');
 const app = express();
 
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 const UserRouter = require('./Api/User');
 

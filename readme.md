@@ -17,6 +17,60 @@ choose between firebase auth @ normal new register
 6. bycript for hash
 
 
+DEPLOY TO HEROKU
+1. have heroku account
+2. install heroku cli (enable heroku in cmd)
+3. cmd: heroku login
+4. sync local project to git repository
+5. create .gitignore file {
+    node_modules
+    .env
+}
+6. create Procfile file{
+    web: node index.js
+}
+7. change port in index.js {
+    const port = process.env.PORT || 3001 ;
+}
+8. cmd: heroku create
+9. setup mongoDB connection as environment variable
+that we made in the project file in the heroku as well.
+cmd: heroku config:set MONGODB_URI={link} as in .env file
+10. cmd: {
+    git push
+    git commit -m "commit before push heroku"
+    git push heroku master
+}.then( the project is deployed!)
+11. heroku requires we scale the application
+cmd: heroku ps:scale web=1
+12. open our application
+cmd: heroku open
+13. when the browser is opened, and ig there are any error,
+check where the error is by checking the log of the application
+cmd: heroku logs --tail
+{
+    eg. if a package is not installed, reinstall the package using cmd
+}
+.then( commit the changes again)
+cmd: {
+    git add .
+    git commit -m "Fix: fix any error if any"
+    git push heroku master
+}
+.then(after redeployment, scale the application once again)
+cmd: {
+    heroku ps:scale web=1
+}
+.then(open again application)
+cmd: heroku open
+14. After the open application is successfull,
+we will get text "Cannot GET /"
+.then(
+    the link in the browser will be copied.
+    and paired with the api to be tested in postman
+    <heroku application link>/user/signin @ 
+    <heroku application link>/user/signup
+)
 
 
 SYNC TO GITHUB

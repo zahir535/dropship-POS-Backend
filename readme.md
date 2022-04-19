@@ -72,6 +72,8 @@ we will get text "Cannot GET /"
     <heroku application link>/user/signup
 )
 
+MOVE TO DIFFERENT BRANCH AND MAIN IN REPO
+1. git checkout <branchName/main/master>
 
 SYNC TO GITHUB
 // initialize repo in local desktop

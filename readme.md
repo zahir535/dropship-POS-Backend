@@ -72,6 +72,10 @@ we will get text "Cannot GET /"
     <heroku application link>/user/signup
 )
 
+CREATE BRANCH IN REPO
+1. git checkout -b <branchName>
+2. git push <branchName>
+
 
 SYNC TO GITHUB
 // initialize repo in local desktop

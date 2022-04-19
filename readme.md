@@ -82,6 +82,17 @@ CREATE BRANCH IN REPO
 
 >>>>>>> 3c9c2cbae7e08ade2088ac7e5a587c932f1f9570
 
+
+CHANGES REMOTE HEROKU
+// Check for the current url 
+1. git remote -v
+// remove remote url
+2. git remote rm heroku
+// re-add the remote url
+3. git remote add heroku git@heroku.com:boiling-inlet-6957.git
+
+
+
 SYNC TO GITHUB
 // initialize repo in local desktop
 1. git init

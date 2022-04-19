@@ -37,7 +37,7 @@ DEPLOY TO HEROKU
 that we made in the project file in the heroku as well.
 cmd: heroku config:set MONGODB_URI={link} as in .env file
 10. cmd: {
-    git push
+    git add .
     git commit -m "commit before push heroku"
     git push heroku master
 }.then( the project is deployed!)

@@ -92,6 +92,24 @@ CHANGES REMOTE HEROKU
 3. git remote add heroku git@heroku.com:boiling-inlet-6957.git
 
 
+SET NEW CONFIG VARS HEROKU
+-----view current config val-----
+1. heroku config
+//GITHUB_USERNAME: joesmith
+//OTHER_VAR:    production
+
+2. heroku config:get GITHUB_USERNAME
+//joesmith
+
+-----Set a config var-----
+1. heroku config:set GITHUB_USERNAME=joesmith
+//Adding config vars and restarting myapp... done, v12
+//GITHUB_USERNAME: joesmith
+
+-----remove a config var-----
+1. heroku config:unset GITHUB_USERNAME
+//Unsetting GITHUB_USERNAME and restarting myapp... done, v13
+
 
 SYNC TO GITHUB
 // initialize repo in local desktop
@@ -127,3 +145,4 @@ git push -u origin main
 git remote add origin https://github.com/zahir535/dropship-POS.git
 git branch -M main
 git push -u origin main
+

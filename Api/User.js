@@ -8,7 +8,7 @@ const User = require('./../Modules/User');
 
 //password handler
 const bcrypt = require('bcrypt');
-
+//const bcrypt = require('../index.js').bcrypt
 
 // signup
 router.post('/signup', (req, res) => {
@@ -85,6 +85,8 @@ router.post('/signup', (req, res) => {
                     //create new user
 
                     //password handling
+
+                    //original code
                     const saltRounds = 10;
                     bcrypt
                         .hash(password, saltRounds)

@@ -8,11 +8,11 @@ const UserSchema = new Schema({
     // name: String,
     // email: String,
     id: String,
-    user: json,
-    business: json,
-    inventory: json,
-    customer: json,
-    order: json,
+    user: Object,
+    business: Array,
+    inventory: Array,
+    customer: Array,
+    order: Array,
 });
 
 const User = mongoose.model('User', UserSchema);

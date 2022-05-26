@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 const TestSchema = new Schema({
     name: String,
-    user: json,
+    user: Object,
 });
 
 const Test = mongoose.model('Test', TestSchema);

@@ -6,6 +6,7 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 const UserRouter = require('./Api/User');
+const TestRouter = require('./Api/Test');
 
 //import bcrypt
 // const bcrypt = require('bcrypt');
@@ -19,9 +20,12 @@ app.use(bodyParser());
 // direct the application to the router in api ?
 app.use('/user', UserRouter)
 
+//test router
+app.use('/test', TestRouter)
+
 
 app.listen(port, () => {
-    console.log("Server run on port: "+port);
+    console.log("Server run on port: " + port);
 })
 
 //export module bcrypt

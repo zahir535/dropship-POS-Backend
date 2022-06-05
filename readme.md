@@ -55,7 +55,7 @@ cmd: heroku logs --tail
 cmd: {
     git add .
     git commit -m "Fix: fix any error if any"
-    git push heroku master
+    git push heroku master/main
 }
 .then(after redeployment, scale the application once again)
 cmd: {

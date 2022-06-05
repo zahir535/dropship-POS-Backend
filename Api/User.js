@@ -469,7 +469,7 @@ router.post('/crud/login', (req, res) => {
 
 
         //original code
-        const result = await mainFindDoc(email)
+        const result = mainFindDoc(email);
         if(result){
             res.json({
                 status: "SUCCESS",

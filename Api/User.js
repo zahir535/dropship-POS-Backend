@@ -294,18 +294,8 @@ router.post('/crud/register', (req, res) => {
         //check using the module we created with mongoose in modulses folder
         //search using find function of the model
         //conditional here
-        const uri = process.env.MONGODB_URI;
 
-        /**
-         * The Mongo Client you will use to interact with your database
-         * See https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html for more details
-         * In case: '[MONGODB DRIVER] Warning: Current Server Discovery and Monitoring engine is deprecated...'
-         * pass option { useUnifiedTopology: true } to the MongoClient constructor.
-         * const client =  new MongoClient(uri, {useUnifiedTopology: true})
-         */
-        const client = new MongoClient(uri);
-        
-        const isUserExists = findOneUser(client, email);
+        const isUserExists = mainFindDoc(email);
         if (isUserExists) {
             //if email already exists
             res.json({
@@ -351,7 +341,7 @@ router.post('/crud/register', (req, res) => {
     }
 
 
-    //main function 
+    //main function to save new doc
     async function main(newUser) {
         const uri = process.env.MONGODB_URI;
 
@@ -379,6 +369,40 @@ router.post('/crud/register', (req, res) => {
             // Close the connection to the MongoDB cluster
             await client.close();
         }
+    }
+
+    //function to find one doc
+    async function mainFindDoc(email) {
+        const uri = process.env.MONGODB_URI;
+
+        /**
+         * The Mongo Client you will use to interact with your database
+         * See https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html for more details
+         * In case: '[MONGODB DRIVER] Warning: Current Server Discovery and Monitoring engine is deprecated...'
+         * pass option { useUnifiedTopology: true } to the MongoClient constructor.
+         * const client =  new MongoClient(uri, {useUnifiedTopology: true})
+         */
+        const client = new MongoClient(uri);
+
+        let final ;
+
+        try {
+            // Connect to the MongoDB cluster
+            await client.connect();
+
+            // create a doc for a new user
+
+            // find if email already existed in the db or not
+            final = await findOneUser(client, email);
+
+        } catch (e) {
+            console.log(e);
+        } finally {
+            // Close the connection to the MongoDB cluster
+            await client.close();
+        }
+
+        return final;
     }
 
 

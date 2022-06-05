@@ -294,7 +294,8 @@ router.post('/crud/register', (req, res) => {
         //check using the module we created with mongoose in modulses folder
         //search using find function of the model
         //conditional here
-        if (findOneUser(email)) {
+        const isUserExists = findOneUser(email);
+        if (isUserExists) {
             //if email already exists
             res.json({
                 status: "FAILED",

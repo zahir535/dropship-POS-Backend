@@ -238,7 +238,7 @@ router.post('/signin', (req, res) => {
 })
 
 
-//CRUD operation
+//CRUD operation register
 router.post('/crud/register', (req, res) => {
 
     //get data from req body
@@ -423,6 +423,114 @@ router.post('/crud/register', (req, res) => {
     }
 })
 
+//CRUD operation login
+router.post('/crud/login', (req, res) => {
+
+    //get data from req body
+    let { email, password } = req.body;
+
+    //trim all the white spaces
+    email = email.trim();
+    password = password.trim();
+
+    //check if any of the variables are empty
+    if ( email == "" || password == "") {
+        //if any is empty, return json object
+        res.json({
+            status: "FAILED",
+            message: "Empty input fields"
+        });
+    } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+        //  (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email))
+        //if none of the variables is empty
+        //we check the format of the email using regular ecpression
+
+        //if the name doesnt match regular expression
+        //return json object
+        res.json({
+            status: "FAILED",
+            message: "Invalid email entered"
+        });
+    } else if (password.length < 8) {
+        // (password.length < 8)
+        //if date passes, check the length of the password
+        res.json({
+            status: "FAILED",
+            message: "Password is too short"
+        });
+    } else {
+        //once there is no issue with the variables
+        //start the login process
+
+        //checking if user already exists
+        //check using the module we created with mongoose in modulses folder
+        //search using find function of the model
+        //conditional here
+
+
+        //original code
+        const result = await mainFindDoc(email)
+        if(result){
+            res.json({
+                status: "SUCCESS",
+                message: "User existed",
+                data: result
+            });
+        }
+
+    }
+
+
+
+    //function to find one doc
+    async function mainFindDoc(email) {
+        const uri = process.env.MONGODB_URI;
+
+        /**
+         * The Mongo Client you will use to interact with your database
+         * See https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html for more details
+         * In case: '[MONGODB DRIVER] Warning: Current Server Discovery and Monitoring engine is deprecated...'
+         * pass option { useUnifiedTopology: true } to the MongoClient constructor.
+         * const client =  new MongoClient(uri, {useUnifiedTopology: true})
+         */
+        const client = new MongoClient(uri);
+
+        let final ;
+
+        try {
+            // Connect to the MongoDB cluster
+            await client.connect();
+
+            // create a doc for a new user
+
+            // find if email already existed in the db or not
+            final = await findOneUser(client, email);
+
+        } catch (e) {
+            console.log(e);
+        } finally {
+            // Close the connection to the MongoDB cluster
+            await client.close();
+        }
+
+        console.log('Check result is: ', final);
+        return final;
+    }
+
+
+    async function findOneUser(client, email) {
+        // See https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne for the findOne() docs
+        const result = await client.db("posDB").collection("registerUser").findOne({ email: email });
+
+        if (result) {
+            // console.log(`Found a listing in the collection with the name '${nameOfListing}':`);
+            // console.log(result);
+            return result;
+        } else {
+            console.log(`No listings found with the name '${nameOfListing}'`);
+        }
+    }
+})
 
 // save data
 router.post('/addNew', (req, res) => {

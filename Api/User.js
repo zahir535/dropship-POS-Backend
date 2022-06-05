@@ -295,48 +295,38 @@ router.post('/crud/register', (req, res) => {
         //search using find function of the model
         //conditional here
 
-        const isUserExists = mainFindDoc(email);
-        if (isUserExists) {
-            //if email already exists
-            res.json({
-                status: "FAILED",
-                message: "A user with this email already exists !"
-            });
-        } else {
-            //if email does not exists
-            //create new user
+        //create new user
 
-            //password handling
+        //password handling
 
-            //original code
-            const saltRounds = 10;
-            bcrypt
-                .hash(password, saltRounds)
-                .then(hashedPassword => {
-                    //create a new user with the data we have
-                    //using hashed password
-                    //this new user is created with the module we created using mongoose
+        //original code
+        const saltRounds = 10;
+        bcrypt
+            .hash(password, saltRounds)
+            .then(hashedPassword => {
+                //create a new user with the data we have
+                //using hashed password
+                //this new user is created with the module we created using mongoose
 
-                    const newUser = new User({
-                        name,
-                        email,
-                        password: hashedPassword,
-                    });
+                const newUser = new User({
+                    name,
+                    email,
+                    password: hashedPassword,
+                });
 
-                    //once that is done
-                    //we will save the user
-                    //execute the function to save user in mongoDB
+                //once that is done
+                //we will save the user
+                //execute the function to save user in mongoDB
 
-                    main(newUser).catch(console.error);
+                main(newUser).catch(console.error);
 
+            })
+            .catch(err => {
+                res.json({
+                    status: "FAILED",
+                    message: "An error occured when hashing password new user",
                 })
-                .catch(err => {
-                    res.json({
-                        status: "FAILED",
-                        message: "An error occured when hashing password new user",
-                    })
-                })
-        }
+            })
 
     }
 
@@ -384,7 +374,7 @@ router.post('/crud/register', (req, res) => {
          */
         const client = new MongoClient(uri);
 
-        let final ;
+        let final;
 
         try {
             // Connect to the MongoDB cluster
@@ -418,9 +408,9 @@ router.post('/crud/register', (req, res) => {
         console.log(`New user registered id: ${result.insertedId}`);
     }
 
-    async function findOneUser(client, userEmail) {
+    async function findOneUser(client, email) {
         // See https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne for the findOne() docs
-        const result = await client.db("posDB").collection("registerUser").findOne({ email: userEmail });
+        const result = await client.db("posDB").collection("registerUser").findOne({ email: email });
 
         if (result) {
             // console.log(`Found a listing in the collection with the name '${nameOfListing}':`);

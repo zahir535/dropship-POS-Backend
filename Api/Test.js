@@ -50,4 +50,10 @@ router.post('/saveObj', (req, res) => {
     }
 })
 
+
+//test for nodemon
+router.get('/testnodemon', (req, res) => {
+    res.send("test nodemon. router /test sixbqsiuxbqiu");
+})
+
 module.exports = router;

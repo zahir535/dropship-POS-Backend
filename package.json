@@ -4,7 +4,9 @@
   "description": "install\r - express\r - npm add mongoose dotenv\r - npm add express nodemon",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -18,8 +20,11 @@
   "homepage": "https://github.com/zahir535/dropship-POS-Backend#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.0",
+    "ejs": "^3.1.8",
     "express": "^4.17.3",
+    "firebase": "^9.8.1",
     "mongoose": "^6.3.0",
     "nodemon": "^2.0.15"
   }

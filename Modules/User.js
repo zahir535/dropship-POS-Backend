@@ -5,14 +5,15 @@ const { stringify } = require('nodemon/lib/utils');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-    // name: String,
-    // email: String,
-    id: String,
-    user: Object,
-    business: Array,
-    inventory: Array,
-    customer: Array,
-    order: Array,
+    name: String,
+    email: String,
+    password: String,
+    // id: String,
+    // user: Object,
+    // business: Array,
+    // inventory: Array,
+    // customer: Array,
+    // order: Array,
 });
 
 const User = mongoose.model('User', UserSchema);

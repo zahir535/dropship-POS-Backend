@@ -27,9 +27,10 @@ app.use('/user', UserRouter)
 app.set('view engine', 'ejs');
 
 //render
-app.get("/", (req, res) => {
-    res.render('index');
-})
+//automatically search in views folder
+// app.get("/", (req, res) => {
+//     res.render('index');
+// })
 
 app.listen(port, () => {
     console.log("Server run on port: " + port);

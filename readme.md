@@ -39,7 +39,7 @@ cmd: heroku config:set MONGODB_URI={link} as in .env file
 10. cmd: {
     git add .
     git commit -m "commit before push heroku"
-    git push heroku master
+    git push heroku master/main
 }.then( the project is deployed!)
 11. heroku requires we scale the application
 cmd: heroku ps:scale web=1

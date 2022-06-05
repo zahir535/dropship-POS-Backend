@@ -220,12 +220,12 @@ router.post('/addNew', (req, res) => {
         });
     } else {
         const newUser = new User({
-            id,
-            user,
-            business,
-            inventory,
-            customer,
-            order
+            // id,
+            // user,
+            // business,
+            // inventory,
+            // customer,
+            // order
         });
 
         //once that is done

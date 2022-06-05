@@ -294,7 +294,18 @@ router.post('/crud/register', (req, res) => {
         //check using the module we created with mongoose in modulses folder
         //search using find function of the model
         //conditional here
-        const isUserExists = findOneUser(email);
+        const uri = process.env.MONGODB_URI;
+
+        /**
+         * The Mongo Client you will use to interact with your database
+         * See https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html for more details
+         * In case: '[MONGODB DRIVER] Warning: Current Server Discovery and Monitoring engine is deprecated...'
+         * pass option { useUnifiedTopology: true } to the MongoClient constructor.
+         * const client =  new MongoClient(uri, {useUnifiedTopology: true})
+         */
+        const client = new MongoClient(uri);
+        
+        const isUserExists = findOneUser(client, email);
         if (isUserExists) {
             //if email already exists
             res.json({

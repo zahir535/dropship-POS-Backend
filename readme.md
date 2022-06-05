@@ -146,3 +146,5 @@ git remote add origin https://github.com/zahir535/dropship-POS.git
 git branch -M main
 git push -u origin main
 
+//RESTART HEROKU 
+heroku restart -a app_name

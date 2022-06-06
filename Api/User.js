@@ -427,54 +427,10 @@ router.post('/crud/register', (req, res) => {
 //suggestion: change this API to GET
 router.get('/crud/login', (req, res) => {
 
-    //get data from req body
-    let { email, password } = req.body;
-
-    //trim all the white spaces
-    email = email.trim();
-    password = password.trim();
-
-    //check if any of the variables are empty
-    if (email == "" || password == "") {
-        //if any is empty, return json object
-        res.json({
-            status: "FAILED",
-            message: "Empty input fields"
-        });
-    } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-        //  (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email))
-        //if none of the variables is empty
-        //we check the format of the email using regular ecpression
-
-        //if the name doesnt match regular expression
-        //return json object
-        res.json({
-            status: "FAILED",
-            message: "Invalid email entered"
-        });
-    } else if (password.length < 8) {
-        // (password.length < 8)
-        //if date passes, check the length of the password
-        res.json({
-            status: "FAILED",
-            message: "Password is too short"
-        });
-    } else {
-        //once there is no issue with the variables
-        //start the login process
-
-        //checking if user already exists
-        //check using the module we created with mongoose in modulses folder
-        //search using find function of the model
-        //conditional here
-
-
-        //original code
-        // mainFindDoc(email);
-        mainFindDoc("Tom@gmail.com")
-            .catch(console.error);
-
-    }
+    //original code
+    // mainFindDoc(email);
+    mainFindDoc("Tom@gmail.com")
+        .catch(console.error);
 
 
 

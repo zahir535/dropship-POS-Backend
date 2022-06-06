@@ -174,11 +174,16 @@ router.post('/crud/updateData', (req, res) => {
 })
 
 
+//CRUD operation get data/doc
 router.get('/crud/getData', (req,res) => {
     let {email} = req.body;
 
     //execute the function to save data in mongoDB
-    main(email).catch(console.error);
+    main(email)
+    .then(result => {
+        res.send(result)
+    })
+    .catch(console.error);
 
 
     //main function to save new data
@@ -202,9 +207,6 @@ router.get('/crud/getData', (req,res) => {
 
             // find listing by email
             await findListingByEmail(client, email)
-            .then(result => {
-                res.send(result)
-            })
 
 
         } catch (e) {

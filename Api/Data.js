@@ -179,7 +179,7 @@ router.get('/crud/getData', (req,res) => {
     let {email} = req.body;
 
     //execute the function to save data in mongoDB
-    main(email)
+    main('zahirco535@gmail.com')
     .then(result => {
         res.send(result)
     })

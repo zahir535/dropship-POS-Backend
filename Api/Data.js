@@ -1,6 +1,9 @@
 require('dotenv').config();
 const express = require('express');
 
+//assert 
+const assert = require('assert');
+
 //mongodb
 const { MongoClient } = require('mongodb');
 
@@ -180,9 +183,6 @@ router.get('/crud/getData', (req,res) => {
 
     //execute the function to save data in mongoDB
     main('zahirco535@gmail.com')
-    .then(result => {
-        res.send(result)
-    })
     .catch(console.error);
 
 
@@ -217,6 +217,7 @@ router.get('/crud/getData', (req,res) => {
         }
     }
 
+
     //find listing by email
     async function findListingByEmail(client, emailOfListing) {
         // See https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne for the findOne() docs
@@ -225,10 +226,13 @@ router.get('/crud/getData', (req,res) => {
         if (result) {
             console.log(`Found a listing in the db with the name '${emailOfListing}':`);
             console.log(result);
+
+            res.send(result)
         } else {
             console.log(`No listings found with the name '${emailOfListing}'`);
         }
     }
+
 
 })
 

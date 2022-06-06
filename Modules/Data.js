@@ -5,6 +5,7 @@ const { stringify } = require('nodemon/lib/utils');
 const Schema = mongoose.Schema;
 
 const DataSchema = new Schema({
+    email: String,
     user: Object,
     business: Array,
     inventory: Array,

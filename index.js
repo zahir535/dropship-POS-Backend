@@ -13,11 +13,13 @@ app.use(bodyParser());
 //import router file
 const UserRouter = require('./Api/User');
 const TestRouter = require('./Api/Test');
+const DataRouter = require('./Api/Data');
 
 
 //test router
 app.use('/test', TestRouter)
 app.use('/user', UserRouter)
+app.use('/data', DataRouter)
 
 
 

@@ -424,6 +424,7 @@ router.post('/crud/register', (req, res) => {
 })
 
 //CRUD operation login
+//suggestion: change this API to GET
 router.post('/crud/login', (req, res) => {
 
     //get data from req body

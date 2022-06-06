@@ -435,7 +435,7 @@ router.get('/crud/login', (req, res) => {
     password = password.trim();
 
     //check if any of the variables are empty
-    if ( email == "" || password == "") {
+    if (email == "" || password == "") {
         //if any is empty, return json object
         res.json({
             status: "FAILED",
@@ -471,7 +471,8 @@ router.get('/crud/login', (req, res) => {
 
         //original code
         // mainFindDoc(email);
-        mainFindDoc("Tom@gmail.com");
+        mainFindDoc("Tom@gmail.com")
+            .catch(console.error);
 
     }
 
@@ -515,8 +516,8 @@ router.get('/crud/login', (req, res) => {
 
         if (result) {
             // console.log(`Found a listing in the collection with the name '${nameOfListing}':`);
-            // console.log(result);
-            
+            console.log(result);
+
             res.send(result)
         } else {
             console.log(`No listings found with the name '${nameOfListing}'`);

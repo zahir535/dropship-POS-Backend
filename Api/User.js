@@ -425,7 +425,7 @@ router.post('/crud/register', (req, res) => {
 
 //CRUD operation login
 //suggestion: change this API to GET
-router.post('/crud/login', (req, res) => {
+router.get('/crud/login', (req, res) => {
 
     //get data from req body
     let { email, password } = req.body;
@@ -470,14 +470,7 @@ router.post('/crud/login', (req, res) => {
 
 
         //original code
-        const result = mainFindDoc(email);
-        if(result){
-            res.json({
-                status: "SUCCESS",
-                message: "User existed",
-                data: result
-            });
-        }
+        mainFindDoc(email);
 
     }
 
@@ -496,7 +489,6 @@ router.post('/crud/login', (req, res) => {
          */
         const client = new MongoClient(uri);
 
-        let final ;
 
         try {
             // Connect to the MongoDB cluster
@@ -505,7 +497,7 @@ router.post('/crud/login', (req, res) => {
             // create a doc for a new user
 
             // find if email already existed in the db or not
-            final = await findOneUser(client, email);
+            await findOneUser(client, email);
 
         } catch (e) {
             console.log(e);
@@ -513,9 +505,6 @@ router.post('/crud/login', (req, res) => {
             // Close the connection to the MongoDB cluster
             await client.close();
         }
-
-        console.log('Check result is: ', final);
-        return final;
     }
 
 
@@ -526,7 +515,8 @@ router.post('/crud/login', (req, res) => {
         if (result) {
             // console.log(`Found a listing in the collection with the name '${nameOfListing}':`);
             // console.log(result);
-            return result;
+            
+            res.send(result)
         } else {
             console.log(`No listings found with the name '${nameOfListing}'`);
         }

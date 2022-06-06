@@ -178,12 +178,12 @@ router.post('/crud/updateData', (req, res) => {
 
 
 //CRUD operation get data/doc
-router.get('/crud/getData', (req,res) => {
-    let {email} = req.body;
+router.get('/crud/getData', (req, res) => {
+    let { email } = req.body;
 
     //execute the function to save data in mongoDB
-    main('zahirco535@gmail.com')
-    .catch(console.error);
+    main(email)
+        .catch(console.error);
 
 
     //main function to save new data

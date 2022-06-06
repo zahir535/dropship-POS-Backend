@@ -427,9 +427,11 @@ router.post('/crud/register', (req, res) => {
 //suggestion: change this API to GET
 router.get('/crud/login', (req, res) => {
 
+    const { email } = req.body;
+
     //original code
     // mainFindDoc(email);
-    mainFindDoc("Tom@gmail.com")
+    mainFindDoc(email)
         .catch(console.error);
 
 

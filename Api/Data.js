@@ -89,7 +89,6 @@ router.post('/crud/updateData', (req, res) => {
     // });
 
     const newData = {
-        email,
         user,
         business,
         inventory,
@@ -117,7 +116,6 @@ router.post('/crud/updateData', (req, res) => {
         const client = new MongoClient(uri);
 
         const {
-            email,
             user,
             business,
             inventory,

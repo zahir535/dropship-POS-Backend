@@ -169,7 +169,7 @@ router.post('/crud/updateData', (req, res) => {
     //update listing by email
     async function updateListingByEmail(client, emailOfListing, updatedListing) {
         // See https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#updateOne for the updateOne() docs
-        const result = await client.db("posDB").collection("userData").updateOne({ email: emailOfListing }, { $set: updatedListing });
+        const result = await client.db("posDB").collection("userData").updateOne({ email: emailOfListing }, { $set: updatedListing } , { upsert: true });
 
         console.log(`${result.matchedCount} document(s) matched the query criteria.`);
         console.log(`${result.modifiedCount} document(s) was/were updated.`);

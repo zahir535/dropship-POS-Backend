@@ -8,6 +8,7 @@ const UserSchema = new Schema({
     name: String,
     email: String,
     password: String,
+    dataUser: Object,
     // id: String,
     // user: Object,
     // business: Array,

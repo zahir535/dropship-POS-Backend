@@ -242,7 +242,7 @@ router.post('/signin', (req, res) => {
 router.post('/crud/register', (req, res) => {
 
     //get data from req body
-    let { name, email, password } = req.body;
+    let { name, email, password, dataUser } = req.body;
 
     //trim all the white spaces
     name = name.trim();
@@ -312,6 +312,7 @@ router.post('/crud/register', (req, res) => {
                     name,
                     email,
                     password: hashedPassword,
+                    dataUser: dataUser,
                 });
 
                 //once that is done

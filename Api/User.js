@@ -468,9 +468,9 @@ router.get('/crud/login', (req, res) => {
     }
 
 
-    async function findOneUser(client, email) {
+    async function findOneUser(client, emailOfListing) {
         // See https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne for the findOne() docs
-        const result = await client.db("posDB").collection("registerUser").findOne({ email: email });
+        const result = await client.db("posDB").collection("registerUser").findOne({ email: emailOfListing });
 
         if (result) {
             // console.log(`Found a listing in the collection with the name '${nameOfListing}':`);

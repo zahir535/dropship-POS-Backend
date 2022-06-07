@@ -91,7 +91,7 @@ router.post('/crud/updateData', (req, res) => {
     //     message: "Invalid name entered"
     // });
 
-    const newData = {
+    let newData = {
         user,
         business,
         inventory,
@@ -118,13 +118,6 @@ router.post('/crud/updateData', (req, res) => {
          */
         const client = new MongoClient(uri);
 
-        const {
-            user,
-            business,
-            inventory,
-            customer,
-            order
-        } = newData;
 
         try {
             // Connect to the MongoDB cluster
@@ -137,11 +130,7 @@ router.post('/crud/updateData', (req, res) => {
 
             //update listing by email
             await updateListingByEmail(client, email, {
-                user: user,
-                business: business,
-                inventory: inventory,
-                customer: customer,
-                order: order
+                dataUser: newData
             })
 
         } catch (e) {
@@ -169,7 +158,7 @@ router.post('/crud/updateData', (req, res) => {
     //update listing by email
     async function updateListingByEmail(client, emailOfListing, updatedListing) {
         // See https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#updateOne for the updateOne() docs
-        const result = await client.db("posDB").collection("userData").updateOne({ email: emailOfListing }, { $set: updatedListing } , { upsert: true });
+        const result = await client.db("posDB").collection("registerUser").updateOne({ email: emailOfListing }, { $set: updatedListing } , { upsert: true });
 
         console.log(`${result.matchedCount} document(s) matched the query criteria.`);
         console.log(`${result.modifiedCount} document(s) was/were updated.`);

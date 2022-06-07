@@ -474,7 +474,7 @@ router.get('/crud/login', (req, res) => {
         const result = await client.db("posDB").collection("registerUser").findOne({ email: emailOfListing });
 
         if (result) {
-            // console.log(`Found a listing in the collection with the name '${nameOfListing}':`);
+            console.log(`Found a listing in the collection with the name '${nameOfListing}':`);
             console.log(result);
 
             res.send(result)

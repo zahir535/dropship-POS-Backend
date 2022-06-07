@@ -221,7 +221,7 @@ router.get('/crud/getData', (req, res) => {
     //find listing by email
     async function findListingByEmail(client, emailOfListing) {
         // See https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne for the findOne() docs
-        const result = await client.db("posDB").collection("userData").findOne({ email: emailOfListing });
+        const result = await client.db("posDB").collection("registerUser").findOne({ email: emailOfListing });
 
         if (result) {
             console.log(`Found a listing in the db with the name '${emailOfListing}':`);

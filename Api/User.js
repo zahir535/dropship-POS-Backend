@@ -319,7 +319,13 @@ router.post('/crud/register', (req, res) => {
                 //we will save the user
                 //execute the function to save user in mongoDB
 
-                main(newUser).catch(console.error);
+                mainFindDoc(email, newUser)
+                .catch(error => {
+                    res.send({
+                        status: 'FAILED',
+                        message: 'mainFindDoc error'
+                    })
+                });
 
             })
             .catch(err => {
@@ -363,7 +369,7 @@ router.post('/crud/register', (req, res) => {
     }
 
     //function to find one doc
-    async function mainFindDoc(email) {
+    async function mainFindDoc(email, newUser) {
         const uri = process.env.MONGODB_URI;
 
         /**
@@ -375,8 +381,6 @@ router.post('/crud/register', (req, res) => {
          */
         const client = new MongoClient(uri);
 
-        let final;
-
         try {
             // Connect to the MongoDB cluster
             await client.connect();
@@ -384,7 +388,7 @@ router.post('/crud/register', (req, res) => {
             // create a doc for a new user
 
             // find if email already existed in the db or not
-            final = await findOneUser(client, email);
+            await findOneUser(client, email, newUser);
 
         } catch (e) {
             console.log(e);
@@ -392,8 +396,6 @@ router.post('/crud/register', (req, res) => {
             // Close the connection to the MongoDB cluster
             await client.close();
         }
-
-        return final;
     }
 
 
@@ -407,19 +409,35 @@ router.post('/crud/register', (req, res) => {
         // See https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#insertOne for the insertOne() docs
         const result = await client.db("posDB").collection("registerUser").insertOne(newUser);
         console.log(`New user registered id: ${result.insertedId}`);
+
+        const JsonResult = JSON.stringify(result);
+        
+        res.send({
+            status: 'SUCCESS',
+            message: 'New user registered !',
+            result: JsonResult
+        })
+
     }
 
-    async function findOneUser(client, email) {
+    async function findOneUser(client, emailOfListing, newUser) {
         // See https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne for the findOne() docs
-        const result = await client.db("posDB").collection("registerUser").findOne({ email: email });
+        const result = await client.db("posDB").collection("registerUser").findOne({ email: emailOfListing });
 
         if (result) {
-            // console.log(`Found a listing in the collection with the name '${nameOfListing}':`);
-            // console.log(result);
-            return true;
+            console.log(`Found a listing in the collection with the name '${emailOfListing}':`);
+            console.log(result);
+
+            res.send({
+                status: 'FAILED',
+                message: 'User already exists'
+            })
+
         } else {
-            // console.log(`No listings found with the name '${nameOfListing}'`);
-            return false;
+            console.log(`No listings found with the name '${emailOfListing}'`);
+
+            
+            main(newUser).catch(console.error)
         }
     }
 })

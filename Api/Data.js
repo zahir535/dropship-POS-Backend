@@ -102,7 +102,12 @@ router.post('/crud/updateData', (req, res) => {
 
     //we will save the data
     //execute the function to save data in mongoDB
-    main(newData, email).catch(console.error);
+    main(newData, email).catch(error => {
+        res.send({
+            status: 'FAILED',
+            message: 'main fx to update data failed !'
+        })
+    });
 
 
     //main function to save new data
@@ -158,21 +163,34 @@ router.post('/crud/updateData', (req, res) => {
     //update listing by email
     async function updateListingByEmail(client, emailOfListing, updatedListing) {
         // See https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#updateOne for the updateOne() docs
-        const result = await client.db("posDB").collection("registerUser").updateOne({ email: emailOfListing }, { $set: updatedListing } , { upsert: true });
+        const result = await client.db("posDB").collection("registerUser").updateOne({ email: emailOfListing }, { $set: updatedListing }, { upsert: true });
 
         console.log(`${result.matchedCount} document(s) matched the query criteria.`);
         console.log(`${result.modifiedCount} document(s) was/were updated.`);
+
+        const JsonResult = JSON.stringify(result);
+
+        res.send({
+            status: 'SUCCESS',
+            message: 'Data in DB updated !',
+            result: JsonResult
+        })
     }
 })
 
 
 //CRUD operation get data/doc
-router.get('/crud/getData', (req, res) => {
+router.post('/crud/getData', (req, res) => {
     let { email } = req.body;
 
     //execute the function to save data in mongoDB
     main(email)
-        .catch(console.error);
+        .catch(error => {
+            res.send({
+                status: 'FAILED',
+                message: 'Failed to getData'
+            })
+        });
 
 
     //main function to save new data
@@ -216,9 +234,20 @@ router.get('/crud/getData', (req, res) => {
             console.log(`Found a listing in the db with the name '${emailOfListing}':`);
             console.log(result);
 
-            res.send(result)
+            const JsonResult = JSON.stringify(result);
+
+            res.send({
+                status: 'SUCCESS',
+                message: 'User existed in DB !',
+                result: JsonResult
+            })
         } else {
             console.log(`No listings found with the name '${emailOfListing}'`);
+
+            res.send({
+                status: 'FAILED',
+                message: 'User not existed in DB. PLease register !'
+            })
         }
     }
 

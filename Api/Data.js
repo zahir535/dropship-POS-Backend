@@ -181,16 +181,55 @@ router.post('/crud/updateData', (req, res) => {
 
 //CRUD operation get data/doc
 router.post('/crud/getData', (req, res) => {
-    let { email } = req.body;
+    let { email, password } = req.body;
+
+
+    if (email == "" || password == "") {
+        //if any is empty, return json object
+        res.json({
+            status: "FAILED",
+            message: "Empty input fields"
+        });
+    } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+        //  (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email))
+        //if none of the variables is empty
+        //we check the format of the email using regular ecpression
+
+        //if the name doesnt match regular expression
+        //return json object
+        res.json({
+            status: "FAILED",
+            message: "Invalid email entered"
+        });
+    } else if (password.length < 8) {
+        // (password.length < 8)
+        //if date passes, check the length of the password
+        res.json({
+            status: "FAILED",
+            message: "Password is too short"
+        });
+    } else {
+
+        //execute the function to save data in mongoDB
+        main(email)
+            .catch(error => {
+                res.send({
+                    status: 'FAILED',
+                    message: 'Failed to getData'
+                })
+            });
+
+    }
+
 
     //execute the function to save data in mongoDB
-    main(email)
-        .catch(error => {
-            res.send({
-                status: 'FAILED',
-                message: 'Failed to getData'
-            })
-        });
+    // main(email)
+    //     .catch(error => {
+    //         res.send({
+    //             status: 'FAILED',
+    //             message: 'Failed to getData'
+    //         })
+    //     });
 
 
     //main function to save new data
@@ -234,13 +273,32 @@ router.post('/crud/getData', (req, res) => {
             console.log(`Found a listing in the db with the name '${emailOfListing}':`);
             console.log(result);
 
+
             const JsonResult = JSON.stringify(result);
 
-            res.send({
-                status: 'SUCCESS',
-                message: 'User existed in DB !',
-                result: JsonResult
-            })
+            bcrypt.compare(password, result.password)
+                .then(resCompare => {
+                    if (resCompare == true) {
+                        res.send({
+                            status: 'SUCCESS',
+                            message: 'User existed in DB !',
+                            result: JsonResult
+                        })
+                    } else {
+                        res.send({
+                            status: 'FAILED',
+                            message: 'Password incorrect !'
+                        })
+                    }
+                })
+                .catch(err => {
+                    res.send({
+                        status: 'FAILED',
+                        message: 'Failed to compare password in DB !'
+                    })
+                })
+
+
         } else {
             console.log(`No listings found with the name '${emailOfListing}'`);
 

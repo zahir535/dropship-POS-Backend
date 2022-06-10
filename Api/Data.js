@@ -211,7 +211,7 @@ router.post('/crud/getData', (req, res) => {
     } else {
 
         //execute the function to save data in mongoDB
-        main(email)
+        main(email, password)
             .catch(error => {
                 res.send({
                     status: 'FAILED',
@@ -233,7 +233,7 @@ router.post('/crud/getData', (req, res) => {
 
 
     //main function to save new data
-    async function main(email) {
+    async function main(email, password) {
         const uri = process.env.MONGODB_URI;
 
         /**
@@ -252,7 +252,7 @@ router.post('/crud/getData', (req, res) => {
             // create a doc for a new user
 
             // find listing by email
-            await findListingByEmail(client, email)
+            await findListingByEmail(client, email, password)
 
 
         } catch (e) {
@@ -265,7 +265,7 @@ router.post('/crud/getData', (req, res) => {
 
 
     //find listing by email
-    async function findListingByEmail(client, emailOfListing) {
+    async function findListingByEmail(client, emailOfListing, passwordOfListing) {
         // See https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne for the findOne() docs
         const result = await client.db("posDB").collection("registerUser").findOne({ email: emailOfListing });
 
@@ -276,7 +276,7 @@ router.post('/crud/getData', (req, res) => {
 
             const JsonResult = JSON.stringify(result);
 
-            bcrypt.compare(password, result.password)
+            bcrypt.compare(passwordOfListing, result.password)
                 .then(resCompare => {
                     if (resCompare == true) {
                         res.send({

@@ -187,13 +187,7 @@ router.post('/crud/getData', (req, res) => {
     let { email, password } = req.body;
 
 
-    if (email == "" || password == "") {
-        //if any is empty, return json object
-        res.json({
-            status: "FAILED",
-            message: "Empty input fields"
-        });
-    } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+    if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
         //  (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email))
         //if none of the variables is empty
         //we check the format of the email using regular ecpression
@@ -313,7 +307,7 @@ router.post('/crud/getData', (req, res) => {
 
             res.send({
                 status: 'FAILED',
-                message: 'User not existed in DB. PLease register !'
+                message: 'User not existed. PLease register !'
             })
         }
     }

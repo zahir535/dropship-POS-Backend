@@ -276,27 +276,33 @@ router.post('/crud/getData', (req, res) => {
 
             const JsonResult = JSON.stringify(result);
 
-            bcrypt.compare(passwordOfListing, result.password)
-                .then(resCompare => {
-                    if (resCompare == true) {
-                        res.send({
-                            status: 'SUCCESS',
-                            message: 'User existed in DB !',
-                            result: JsonResult
-                        })
-                    } else {
-                        res.send({
-                            status: 'FAILED',
-                            message: 'Password incorrect !'
-                        })
-                    }
-                })
-                .catch(err => {
-                    res.send({
-                        status: 'FAILED',
-                        message: 'Failed to compare password in DB !'
-                    })
-                })
+            res.send({
+                status: 'FAILED',
+                message: 'Failed to compare password in DB !',
+                dataUser: JsonResult
+            })
+
+            // bcrypt.compare(passwordOfListing, result.password)
+            //     .then(resCompare => {
+            //         if (resCompare == true) {
+            //             res.send({
+            //                 status: 'SUCCESS',
+            //                 message: 'User existed in DB !',
+            //                 result: JsonResult
+            //             })
+            //         } else {
+            //             res.send({
+            //                 status: 'FAILED',
+            //                 message: 'Password incorrect !'
+            //             })
+            //         }
+            //     })
+            //     .catch(err => {
+            //         res.send({
+            //             status: 'FAILED',
+            //             message: 'Failed to compare password in DB !'
+            //         })
+            //     })
 
 
         } else {

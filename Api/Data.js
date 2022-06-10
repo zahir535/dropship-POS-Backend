@@ -13,6 +13,9 @@ const router = express.Router();
 //mongo db data model
 const Data = require('./../Modules/Data');
 
+//bcrypt
+const bcrypt = require('bcrypt');
+
 
 //CRUD operation save new data/doc
 router.post('/crud/saveNewData', (req, res) => {
@@ -276,33 +279,33 @@ router.post('/crud/getData', (req, res) => {
 
             const JsonResult = JSON.stringify(result);
 
-            res.send({
-                status: 'FAILED',
-                message: 'Failed to compare password in DB !',
-                dataUser: JsonResult
-            })
+            // res.send({
+            //     status: 'FAILED',
+            //     message: 'Failed to compare password in DB !',
+            //     dataUser: JsonResult
+            // })
 
-            // bcrypt.compare(passwordOfListing, result.password)
-            //     .then(resCompare => {
-            //         if (resCompare == true) {
-            //             res.send({
-            //                 status: 'SUCCESS',
-            //                 message: 'User existed in DB !',
-            //                 result: JsonResult
-            //             })
-            //         } else {
-            //             res.send({
-            //                 status: 'FAILED',
-            //                 message: 'Password incorrect !'
-            //             })
-            //         }
-            //     })
-            //     .catch(err => {
-            //         res.send({
-            //             status: 'FAILED',
-            //             message: 'Failed to compare password in DB !'
-            //         })
-            //     })
+            bcrypt.compare(passwordOfListing, result.password)
+                .then(resCompare => {
+                    if (resCompare == true) {
+                        res.send({
+                            status: 'SUCCESS',
+                            message: 'User existed in DB !',
+                            result: JsonResult
+                        })
+                    } else {
+                        res.send({
+                            status: 'FAILED',
+                            message: 'Password incorrect !'
+                        })
+                    }
+                })
+                .catch(err => {
+                    res.send({
+                        status: 'FAILED',
+                        message: 'Failed to compare password in DB !'
+                    })
+                })
 
 
         } else {

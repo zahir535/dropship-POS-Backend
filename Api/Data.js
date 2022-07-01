@@ -83,6 +83,7 @@ router.post('/crud/saveNewData', (req, res) => {
 })
 
 
+//USED IN FRONTEND
 //CRUD operation update data/doc
 router.post('/crud/updateData', (req, res) => {
 
@@ -181,7 +182,7 @@ router.post('/crud/updateData', (req, res) => {
     }
 })
 
-
+//USED IN FRONTEND
 //CRUD operation get data/doc
 router.post('/crud/getData', (req, res) => {
     let { email, password } = req.body;

@@ -80,7 +80,7 @@ CREATE BRANCH IN REPO
 1. git checkout -b <branchName>
 2. git push <branchName>
 
->>>>>>> 3c9c2cbae7e08ade2088ac7e5a587c932f1f9570
+
 
 
 CHANGES REMOTE HEROKU
